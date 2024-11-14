@@ -223,16 +223,25 @@
                                         <rect key="frame" x="0.0" y="50.5" width="75" height="34.5"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                        <connections>
+                                            <action selector="singleQuestionButtonPressed:" destination="QC6-fA-Dy1" eventType="touchUpInside" id="CkS-Ik-JCj"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0wL-JO-znK">
                                         <rect key="frame" x="0.0" y="101" width="75" height="34.5"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                        <connections>
+                                            <action selector="singleQuestionButtonPressed:" destination="QC6-fA-Dy1" eventType="touchUpInside" id="ED6-DP-Nir"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UI9-Q9-GPD">
                                         <rect key="frame" x="0.0" y="151.5" width="75" height="34.5"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                        <connections>
+                                            <action selector="singleQuestionButtonPressed:" destination="QC6-fA-Dy1" eventType="touchUpInside" id="AoO-C7-y8p"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -261,7 +270,7 @@
                         <outlet property="multipleStackView" destination="zef-9r-f8E" id="tUw-PD-uGz"/>
                         <outlet property="questionLabel" destination="tuk-4B-kVr" id="l7G-kV-OFd"/>
                         <outlet property="questionProgressView" destination="nAa-XP-dv9" id="hNG-nY-Oif"/>
-                        <outlet property="rangedSlider" destination="3JN-gy-6hC" id="X1h-5I-nKy"/>
+                        <outlet property="rangedSlider" destination="3JN-gy-6hC" id="cMf-1h-TH5"/>
                         <outlet property="rangedStackView" destination="Xei-s5-DBA" id="2dg-B8-TJc"/>
                         <outlet property="singleStackView" destination="MeF-DK-rcl" id="AhC-IE-9wd"/>
                         <outletCollection property="singleButtons" destination="MCP-i1-GZo" collectionClass="NSMutableArray" id="ggQ-II-NLS"/>
@@ -269,7 +278,6 @@
                         <outletCollection property="singleButtons" destination="0wL-JO-znK" collectionClass="NSMutableArray" id="zeJ-2k-4gj"/>
                         <outletCollection property="singleButtons" destination="UI9-Q9-GPD" collectionClass="NSMutableArray" id="BCo-gJ-CrC"/>
                         <outletCollection property="multipleLabels" destination="yjU-VL-kqm" collectionClass="NSMutableArray" id="SjW-RR-Z6W"/>
-                        <outletCollection property="multipleLabels" destination="4UY-ze-FaE" collectionClass="NSMutableArray" id="OUp-tF-rgE"/>
                         <outletCollection property="multipleLabels" destination="Zae-KQ-mCZ" collectionClass="NSMutableArray" id="ZZ2-Sf-lzl"/>
                         <outletCollection property="multipleLabels" destination="Tus-Zk-mJq" collectionClass="NSMutableArray" id="Xbu-PW-vce"/>
                         <outletCollection property="multipleSwitches" destination="lwa-nu-ofu" collectionClass="NSMutableArray" id="6kD-zC-NVm"/>

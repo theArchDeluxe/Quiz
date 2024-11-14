@@ -35,6 +35,7 @@ final class QuestionsViewController: UIViewController {
     private var currentAnswers: [Answer] {
         questions[questionIndex].answers
     }
+    
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +43,7 @@ final class QuestionsViewController: UIViewController {
         let answersCount = Float(currentAnswers.count - 1)
         rangedSlider.minimumValue = answersCount
         rangedSlider.value = answersCount / 2
+        
         updateUI()
     }
     
@@ -53,11 +55,10 @@ final class QuestionsViewController: UIViewController {
     // MARK: - IB Actions
     @IBAction func singleQuestionButtonPressed(_ sender: UIButton) {
         guard let buttonIndex = singleButtons.firstIndex(of: sender) else { return }
-        let currentAnswer = currentAnswers[buttonIndex]
-        answersChosen.append(currentAnswer)
+        let answer = currentAnswers[buttonIndex]
+        answersChosen.append(answer)
         nextQuestion()
     }
-    
     
     @IBAction func multipleQuestionButtonPressed() {
         for (multipleSwitch, answer) in zip(multipleSwitches, currentAnswers) {
@@ -73,21 +74,21 @@ final class QuestionsViewController: UIViewController {
         answersChosen.append(currentAnswers[index])
         nextQuestion()
     }
-    
 }
 
 // MARK: - Private Methods
-private extension QuestionsViewController {
-    func updateUI() {
+extension QuestionsViewController {
+    private func updateUI() {
         for stackView in [singleStackView, multipleStackView, rangedStackView] {
             stackView?.isHidden = true
         }
         
-        title = "Вопрос № \(questionIndex + 1) из \(questions.count)"
         let currentQuestion = questions[questionIndex]
         questionLabel.text = currentQuestion.title
         let totalProgress = Float(questionIndex) / Float(questions.count)
         questionProgressView.setProgress(totalProgress, animated: true)
+        title = "Вопрос № \(questionIndex + 1) из \(questions.count)"
+        
         showCurrentAnswers(for: currentQuestion.type)
     }
     
@@ -96,7 +97,7 @@ private extension QuestionsViewController {
     ///Display answers to a question according to a category
     ///
     /// - Parameter type: Specifies the category of response
-    func showCurrentAnswers(for type: ResponseType) {
+    private func showCurrentAnswers(for type: ResponseType) {
         switch type {
         case .single:
             showSingleStackView(with: currentAnswers)
@@ -106,30 +107,48 @@ private extension QuestionsViewController {
             showRangedStackView(with: currentAnswers)
         }
     }
-    func showSingleStackView(with answers: [Answer]) {
-        singleStackView.isHidden.toggle()
+    
+    private func showSingleStackView(with answers: [Answer]) {
+        singleStackView.isHidden = false
         
         for (button, answer) in zip(singleButtons, answers) {
             button.setTitle(answer.title, for: .normal)
         }
     }
     
-    func showMultipleStackView(with answers: [Answer]) {
-        multipleStackView.isHidden.toggle()
+    private func showMultipleStackView(with answers: [Answer]) {
+        multipleStackView.isHidden = false
         
         for (label, answer) in zip(multipleLabels, answers) {
             label.text = answer.title
         }
     }
     
-    func showRangedStackView(with answers: [Answer]) {
-        rangedStackView.isHidden.toggle()
+    private func showRangedStackView(with answers: [Answer]) {
+        guard answers.count >= 2 else {
+            print("Error: not enough answers")
+            return
+        }
         
-        rangedLabels.first?.text = answers.first?.title
-        rangedLabels.last?.text = answers.last?.title
+        guard let stackView = rangedStackView,
+              rangedLabels.count >= 2 else {
+            print("Error: UI elements not connected")
+            return
+        }
+        
+        stackView.isHidden = false
+        
+        
+        if let firstLabel = rangedLabels.first,
+           let lastLabel = rangedLabels.last,
+           let firstAnswer = answers.first,
+           let lastAnswer = answers.last {
+            firstLabel.text = firstAnswer.title
+            lastLabel.text = lastAnswer.title
+        }
     }
     
-    func nextQuestion() {
+    private func nextQuestion() {
         questionIndex += 1
         
         if questionIndex < questions.count {

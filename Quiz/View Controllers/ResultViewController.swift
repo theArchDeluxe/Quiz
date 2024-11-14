@@ -18,15 +18,13 @@ final class ResultViewController: UIViewController {
         super.viewDidLoad()
         navigationItem.hidesBackButton = true
         updateResult()
-
-        
     }
     
     @IBAction func doneButtonAction(_ sender: UIBarButtonItem) {
         dismiss(animated: true)
     }
-
 }
+
 extension ResultViewController {
     private func updateResult() {
         var frequencyOfAnimals: [Animal: Int] = [:]
@@ -36,14 +34,13 @@ extension ResultViewController {
             frequencyOfAnimals[animal, default: 0] += 1
         }
         
-        let sortedFrequentOfAnimals = frequencyOfAnimals.sorted { $0.value > $1.value }
-        guard let mostFrequentAnimal = sortedFrequentOfAnimals.first?.key else { return }
-        
-        updateUI(with: mostFrequentAnimal)
+        if let mostFrequentAnimal = frequencyOfAnimals.max(by: { $0.value < $1.value })?.key {
+            updateUI(with: mostFrequentAnimal)
+        }
     }
        
         private func updateUI(with animal: Animal) {
             animalTypeLabel.text = "Вы - \(animal.rawValue)!"
             descriptionLabel.text = animal.definition
-        }
+    }
 }

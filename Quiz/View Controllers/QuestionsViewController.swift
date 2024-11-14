@@ -38,10 +38,16 @@ final class QuestionsViewController: UIViewController {
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        updateUI()
+       
         let answersCount = Float(currentAnswers.count - 1)
         rangedSlider.minimumValue = answersCount
         rangedSlider.value = answersCount / 2
+        updateUI()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let resultVC = segue.destination as? ResultViewController
+        resultVC?.answers = answersChosen
     }
 
     // MARK: - IB Actions
@@ -52,9 +58,7 @@ final class QuestionsViewController: UIViewController {
         nextQuestion()
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-    }
+    
     @IBAction func multipleQuestionButtonPressed() {
         for (multipleSwitch, answer) in zip(multipleSwitches, currentAnswers) {
             if multipleSwitch.isOn {

@@ -29,9 +29,9 @@ final class QuestionsViewController: UIViewController {
     @IBOutlet var rangedSlider: UISlider!
     
     // MARK: - Private Properties
-    private var questionIndex = 0
     private let  questions = Question.getQuestions()
     private var answersChosen: [Answer] = []
+    private var questionIndex = 0
     private var currentAnswers: [Answer] {
         questions[questionIndex].answers
     }
@@ -39,8 +39,7 @@ final class QuestionsViewController: UIViewController {
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-       
-        let answersCount = Float(currentAnswers.count - 1)
+       let answersCount = Float(currentAnswers.count - 1)
         rangedSlider.minimumValue = answersCount
         rangedSlider.value = answersCount / 2
         
@@ -99,17 +98,14 @@ extension QuestionsViewController {
     /// - Parameter type: Specifies the category of response
     private func showCurrentAnswers(for type: ResponseType) {
         switch type {
-        case .single:
-            showSingleStackView(with: currentAnswers)
-        case .multiple:
-            showMultipleStackView(with: currentAnswers)
-        case .ranged:
-            showRangedStackView(with: currentAnswers)
+        case .single: showSingleStackView(with: currentAnswers)
+        case .multiple: showMultipleStackView(with: currentAnswers)
+        case .ranged: showRangedStackView(with: currentAnswers)
         }
     }
     
     private func showSingleStackView(with answers: [Answer]) {
-        singleStackView.isHidden = false
+        singleStackView.isHidden.toggle()
         
         for (button, answer) in zip(singleButtons, answers) {
             button.setTitle(answer.title, for: .normal)
@@ -117,7 +113,7 @@ extension QuestionsViewController {
     }
     
     private func showMultipleStackView(with answers: [Answer]) {
-        multipleStackView.isHidden = false
+        multipleStackView.isHidden.toggle()
         
         for (label, answer) in zip(multipleLabels, answers) {
             label.text = answer.title
@@ -125,27 +121,10 @@ extension QuestionsViewController {
     }
     
     private func showRangedStackView(with answers: [Answer]) {
-        guard answers.count >= 2 else {
-            print("Error: not enough answers")
-            return
-        }
+        rangedStackView.isHidden.toggle()
         
-        guard let stackView = rangedStackView,
-              rangedLabels.count >= 2 else {
-            print("Error: UI elements not connected")
-            return
-        }
-        
-        stackView.isHidden = false
-        
-        
-        if let firstLabel = rangedLabels.first,
-           let lastLabel = rangedLabels.last,
-           let firstAnswer = answers.first,
-           let lastAnswer = answers.last {
-            firstLabel.text = firstAnswer.title
-            lastLabel.text = lastAnswer.title
-        }
+        rangedLabels.first?.text = answers.first?.title
+        rangedLabels.last?.text = answers.last?.title
     }
     
     private func nextQuestion() {

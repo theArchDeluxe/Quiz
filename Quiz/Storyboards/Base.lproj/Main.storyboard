@@ -288,7 +288,7 @@
         <!--Результат-->
         <scene sceneID="EpP-1m-suv">
             <objects>
-                <viewController id="VgG-sP-lT2" sceneMemberID="viewController">
+                <viewController id="VgG-sP-lT2" customClass="ResultViewController" customModule="Quiz" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Qan-mn-Qbx">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -319,10 +319,19 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Результат" id="za6-QY-KBj">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="yEW-b4-R1a"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="yEW-b4-R1a">
+                            <connections>
+                                <action selector="doneButtonAction:" destination="qDF-O7-NBF" id="VJZ-bo-qOf"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="animalTypeLabel" destination="zOo-cK-EhL" id="5pc-ox-Rqk"/>
+                        <outlet property="descriptionLabel" destination="A9N-Ja-ZPH" id="54i-yj-LAV"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7A4-0D-Hic" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="qDF-O7-NBF" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2576.25" y="20.070422535211268"/>
         </scene>
